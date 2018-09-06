@@ -22,7 +22,7 @@ public class ImportCsvController {
 	@Autowired
 	private XapiStatementsToLL xApiStatements;
 
-	@RequestMapping("/import/csvdata/")
+	@RequestMapping("/import/csvdata")
 	@ResponseBody
 	public String index() throws IOException {
 		int response;
@@ -41,4 +41,5 @@ public class ImportCsvController {
 		return result;
 
 	}
+
 }
