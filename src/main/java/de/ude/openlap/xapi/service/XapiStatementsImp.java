@@ -34,7 +34,7 @@ public class XapiStatementsImp implements XapiStatements {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		String url = "http://192.168.2.102:8081/data/xAPI/statements/?" + param1Before;
+		String url = "http://192.168.1.104:8081/data/xAPI/statements/?" + param1Before;
 		HttpGet request = new HttpGet(url);
 		request.addHeader("content-type", "application/json");
 		request.addHeader("Authorization", "Basic NWNhN2Y3MDI0YjZlMjJlOTk4MTk4NGYxOGYwMGYyNGMzMTM4Y2I5ZjowZjRlMWE0OTdjODRhYjJlZjVjYjE4NTUyZTIzN2RjZmI4MTM2NDU2");

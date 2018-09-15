@@ -20,7 +20,7 @@ public class ImportCsvController {
 	@Autowired
 	private CsvToJsonConverter converter;
 	@Autowired
-	private XapiStatementsToLL xApiStatements;
+	private XapiStatementsToLL xapiStatements;
 
 	@RequestMapping("/import/csvdata")
 	@ResponseBody
@@ -29,7 +29,7 @@ public class ImportCsvController {
 		String result;
 		MappingIterator<Statement> csvStatements = converter.readStatementsFromCsv("learning_locker_dump.csv");
 		JSONArray xapiStatementsFromCsv = converter.convertCsvStatementsToXapiStatements(csvStatements);
-		response = xApiStatements.sendStatementsToLL(xapiStatementsFromCsv);
+		response = xapiStatements.sendStatementsToLL(xapiStatementsFromCsv);
 		result = "Status code" + response + "\nReturned from Learning Locker";
 		if (response == 200) {
 
