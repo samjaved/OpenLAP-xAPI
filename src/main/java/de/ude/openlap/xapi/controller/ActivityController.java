@@ -3,24 +3,26 @@ package de.ude.openlap.xapi.controller;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import de.ude.openlap.xapi.repo.FullActivitiesRepo;
 
-@Controller
+@RestController
+@RequestMapping("/v1/activity/")
 public class ActivityController {
 
 
 	@Autowired
 	private FullActivitiesRepo activityRepo;
 
-	@RequestMapping("/activities")
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
 	public String getAllActivities() throws IOException {
 
@@ -30,7 +32,7 @@ public class ActivityController {
 
 	}
 
-	@RequestMapping("/activity/{Id}")
+	@RequestMapping(value = "/show/{Id}", method = RequestMethod.GET)
 	@ResponseBody
 	public String getActivitiesById(@PathVariable("Id") String Id) throws IOException {
 
@@ -40,7 +42,7 @@ public class ActivityController {
 
 	}
 
-	@RequestMapping("/activity/activityId/{activityId}")
+	@RequestMapping(value = "/show/activityId/{activityId}", method = RequestMethod.GET)
 	@ResponseBody
 	public String getActivitiesByActivityId(@PathVariable("activityId") String activityId) throws IOException {
 
@@ -51,7 +53,7 @@ public class ActivityController {
 
 	}
 
-	@RequestMapping("/activity/{objectName}/{propertyName}/{propertyValue}")
+	@RequestMapping(value = "/show/{objectName}/{propertyName}/{propertyValue}", method = RequestMethod.GET)
 	@ResponseBody
 	public String getActivitiesByOBjectNameAndProperty(@PathVariable("objectName") String objcetName,
 			@PathVariable("propertyName") String propertyName, @PathVariable("propertyValue") String propertyValue)
