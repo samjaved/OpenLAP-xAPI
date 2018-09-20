@@ -47,22 +47,22 @@ public class CsvToJsonConverterImp implements CsvToJsonConverter {
 	public JSONArray convertCsvStatementsToXapiStatements(MappingIterator<Statement> csvStatements) throws IOException {
 		// TODO Auto-generated method stub
 		JSONArray xApiStatements = new JSONArray();
-		for (Statement truckEvent : csvStatements.readAll()) {
+		for (Statement csvStatement : csvStatements.readAll()) {
 			JSONObject statement = new JSONObject();
 			try {
-				JSONObject verb = new JSONObject(truckEvent.getVerb());
-				JSONObject actor = new JSONObject(truckEvent.getActor());
-				JSONObject object = new JSONObject(truckEvent.getObject());
+				JSONObject verb = new JSONObject(csvStatement.getVerb());
+				JSONObject actor = new JSONObject(csvStatement.getActor());
+				JSONObject object = new JSONObject(csvStatement.getObject());
 
 				statement.put("verb", verb);
 				statement.put("actor", actor);
 				statement.put("object", object);
-				if (!truckEvent.getResult().isEmpty()) {
-					JSONObject result = new JSONObject(truckEvent.getResult());
+				if (!csvStatement.getResult().isEmpty()) {
+					JSONObject result = new JSONObject(csvStatement.getResult());
 					statement.put("result", result);
 				}
-				if (!truckEvent.getContext().isEmpty()) {
-					JSONObject context = new JSONObject(truckEvent.getContext());
+				if (!csvStatement.getContext().isEmpty()) {
+					JSONObject context = new JSONObject(csvStatement.getContext());
 					statement.put("context", context);
 				}
 
