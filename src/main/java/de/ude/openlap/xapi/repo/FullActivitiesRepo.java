@@ -12,6 +12,11 @@ public interface FullActivitiesRepo extends MongoRepository<FullActivities, Stri
 	@Query(value = "{ '?0.?1' : ?2 }")
 	List<FullActivities> findByObjectNameAndProperty(String Objcet, String Parameter, String Value);
 
+	@Query(value = "{ '?0.?1.?2' : ?3 }")
+	List<FullActivities> findByObjects(String Objcet, String Secondobjcet, String Parameter, int Value);
+
 	List<FullActivities> findByActivityId(String activityid);
+
+	List<FullActivities> findByType(String type);
 
 }

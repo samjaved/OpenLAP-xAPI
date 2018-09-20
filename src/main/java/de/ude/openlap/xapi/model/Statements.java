@@ -3,7 +3,6 @@ package de.ude.openlap.xapi.model;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -67,15 +66,6 @@ public class Statements {
 	public void setClient(String client) {
 		this.client = client;
 	}
-
-	public Person getPerson() {
-		return person;
-	}
-
-	public void setPerson(Person person) {
-		this.person = person;
-	}
-
 	public boolean isVoided() {
 		return voided;
 	}
@@ -92,23 +82,23 @@ public class Statements {
 		this.hash = hash;
 	}
 
-	public Statement getStatement() {
+	public Object getStatement() {
 		return statement;
 	}
 
-	public void setStatement(Statement statement) {
+	public void setStatement(Object statement) {
 		this.statement = statement;
 	}
+
 	public String organisation;
 
 	public String lrs_id;
 
 	public String client;
-	@DBRef
-	private Person person;
+
 	public boolean voided;
 	public String hash;
-	@DBRef
-	private Statement statement;
+
+	private Object statement;
 
 }

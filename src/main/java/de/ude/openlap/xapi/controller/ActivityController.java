@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,10 +43,10 @@ public class ActivityController {
 
 	}
 
-	@RequestMapping(value = "/show/activityId/{activityId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/show/activitesByActivtyId", method = RequestMethod.GET)
 	@ResponseBody
-	public String getActivitiesByActivityId(@PathVariable("activityId") String activityId) throws IOException {
-
+	public String getActivitiesByActivityId(@RequestParam("activityId") String activityId) throws IOException {
+		
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String activiteslist = gson.toJson(activityRepo.findByActivityId(activityId));
 		return activiteslist;
@@ -53,15 +54,39 @@ public class ActivityController {
 
 	}
 
-	@RequestMapping(value = "/show/{objectName}/{propertyName}/{propertyValue}", method = RequestMethod.GET)
+	@RequestMapping(value = "/show/activitesByType", method = RequestMethod.GET)
+	@ResponseBody
+	public String getActivitiesByType(@RequestParam("type") String type) throws IOException {
+
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String activiteslist = gson.toJson(activityRepo.findByType(type));
+		return activiteslist;
+
+	}
+
+	@RequestMapping(value = "/show/{objectName}/{propertyName}", method = RequestMethod.GET)
 	@ResponseBody
 	public String getActivitiesByOBjectNameAndProperty(@PathVariable("objectName") String objcetName,
-			@PathVariable("propertyName") String propertyName, @PathVariable("propertyValue") String propertyValue)
+			@PathVariable("propertyName") String propertyName, @RequestParam("propertyValue") String propertyValue)
 			throws IOException {
 
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String activiteslist = gson
 				.toJson(activityRepo.findByObjectNameAndProperty(objcetName, propertyName, propertyValue));
+		return activiteslist;
+
+	}
+
+	@RequestMapping(value = "/show/metadata/{objectName}/{propertyName}/{propertyValue}", method = RequestMethod.GET)
+	@ResponseBody
+	public String getActivitiesByOBjectsName(@PathVariable("objectName") String objcetName,
+			@PathVariable("propertyName") String propertyName, @PathVariable("propertyValue") int propertyValue,
+			@RequestParam("secondObjectName") String secondobjectname)
+			throws IOException {
+
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String activiteslist = gson
+				.toJson(activityRepo.findByObjects(objcetName, secondobjectname, propertyName, propertyValue));
 		return activiteslist;
 
 	}
