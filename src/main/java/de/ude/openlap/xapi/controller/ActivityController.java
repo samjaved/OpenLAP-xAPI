@@ -33,9 +33,9 @@ public class ActivityController {
 
 	}
 
-	@RequestMapping(value = "/show/{Id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	@ResponseBody
-	public String getActivitiesById(@PathVariable("Id") String Id) throws IOException {
+	public String getActivitiesById(@RequestParam("Id") String Id) throws IOException {
 
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String activiteslist = gson.toJson(activityRepo.findById(Id));
@@ -64,10 +64,10 @@ public class ActivityController {
 
 	}
 
-	@RequestMapping(value = "/show/{objectName}/{propertyName}", method = RequestMethod.GET)
+	@RequestMapping(value = "/show/{objectName}", method = RequestMethod.GET)
 	@ResponseBody
 	public String getActivitiesByOBjectNameAndProperty(@PathVariable("objectName") String objcetName,
-			@PathVariable("propertyName") String propertyName, @RequestParam("propertyValue") String propertyValue)
+			@RequestParam("propertyName") String propertyName, @RequestParam("propertyValue") String propertyValue)
 			throws IOException {
 
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -77,10 +77,10 @@ public class ActivityController {
 
 	}
 
-	@RequestMapping(value = "/show/metadata/{objectName}/{propertyName}/{propertyValue}", method = RequestMethod.GET)
+	@RequestMapping(value = "/show/metadata/{objectName}", method = RequestMethod.GET)
 	@ResponseBody
 	public String getActivitiesByOBjectsName(@PathVariable("objectName") String objcetName,
-			@PathVariable("propertyName") String propertyName, @PathVariable("propertyValue") int propertyValue,
+			@RequestParam("propertyName") String propertyName, @RequestParam("propertyValue") int propertyValue,
 			@RequestParam("secondObjectName") String secondobjectname)
 			throws IOException {
 
