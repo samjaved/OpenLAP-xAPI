@@ -22,18 +22,19 @@ public class XapiStatementsToLLImp implements XapiStatementsToLL {
 	private String learningClientKey;
 
 	@Override
-	public int sendStatementsToLL(JSONArray array) {
+	public int sendStatementsToLL(JSONArray statemnets) {
 		// TODO Auto-generated method stub
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpResponse response = null;
 		int statusCode;
 		HttpPost request = new HttpPost(learningLockerUrl);
-		request.addHeader("content-type", "application/json");
+		request.addHeader("content-type", "application/json;charset=UTF-8");
 		request.addHeader("Authorization", learningClientKey);
 		request.addHeader("X-Experience-API-Version", "1.0.0");
+		
 
 		try {
-			StringEntity params = new StringEntity(array.toString());
+			StringEntity params = new StringEntity(statemnets.toString());
 			request.setEntity(params);
 			try {
 				response = httpClient.execute(request);

@@ -2,8 +2,8 @@ package de.ude.openlap.xapi.repo;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import de.ude.openlap.xapi.model.Personas;
+import de.ude.openlap.xapi.model.Person;
 
-public interface PersonasRepo extends MongoRepository<Personas, String> {
+public interface PersonRepo extends MongoRepository<Person, String> {
 
 }

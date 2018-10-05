@@ -3,12 +3,10 @@ package de.ude.openlap.xapi.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "personas")
-public class Person {
-
+@Document(collection = "organisations")
+public class Organization {
 	@Id
 	public String id;
-	public String organization;
 	public String name;
 
 	public String getId() {
@@ -19,14 +17,6 @@ public class Person {
 		this.id = id;
 	}
 
-	public String getOrganization() {
-		return organization;
-	}
-
-	public void setOrganization(String organization) {
-		this.organization = organization;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -34,5 +24,4 @@ public class Person {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 }

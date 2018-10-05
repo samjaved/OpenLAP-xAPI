@@ -8,7 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Document(collection = "statements")
-public class Statements {
+public class Statement {
 
 	@Id
 	public String id;

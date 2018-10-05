@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import de.ude.openlap.xapi.repo.FullActivitiesRepo;
+import de.ude.openlap.xapi.repo.ActivitiyRepo;
 
 @RestController
 @RequestMapping("/v1/activity/")
@@ -21,15 +21,16 @@ public class ActivityController {
 
 
 	@Autowired
-	private FullActivitiesRepo activityRepo;
+	private ActivitiyRepo activityRepo;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
 	public String getAllActivities() throws IOException {
 
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 		String activiteslist = gson.toJson(activityRepo.findAll());
-		return activiteslist;
+		String value = new String(activiteslist);
+		return value;
 
 	}
 
@@ -64,7 +65,7 @@ public class ActivityController {
 
 	}
 
-	@RequestMapping(value = "/show/{objectName}", method = RequestMethod.GET)
+	@RequestMapping(value = "/show/activitesByObjectName/{objectName}", method = RequestMethod.GET)
 	@ResponseBody
 	public String getActivitiesByOBjectNameAndProperty(@PathVariable("objectName") String objcetName,
 			@RequestParam("propertyName") String propertyName, @RequestParam("propertyValue") String propertyValue)
@@ -79,16 +80,17 @@ public class ActivityController {
 
 	@RequestMapping(value = "/show/metadata/{objectName}", method = RequestMethod.GET)
 	@ResponseBody
-	public String getActivitiesByOBjectsName(@PathVariable("objectName") String objcetName,
-			@RequestParam("propertyName") String propertyName, @RequestParam("propertyValue") int propertyValue,
-			@RequestParam("secondObjectName") String secondobjectname)
+	public String getActivitiesByOBjectsName(@PathVariable("objectName") String objectname,
+			@RequestParam("secondObjectName") String secondobjectname,
+			@RequestParam("propertyName") String propertyName, @RequestParam("propertyValue") int propertyValue)
 			throws IOException {
 
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 		String activiteslist = gson
-				.toJson(activityRepo.findByObjects(objcetName, secondobjectname, propertyName, propertyValue));
+				.toJson(activityRepo.findByObjects(objectname, secondobjectname, propertyName, propertyValue));
 		return activiteslist;
 
 	}
+
 
 }

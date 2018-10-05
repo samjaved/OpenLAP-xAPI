@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import de.ude.openlap.xapi.repo.StatementsRepo;
+import de.ude.openlap.xapi.repo.StatementRepo;
 
 @RestController
 @RequestMapping("/v1/statements/")
 public class StatementsController {
 	@Autowired
-	private StatementsRepo statementsRepo;
+	private StatementRepo statementsRepo;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody

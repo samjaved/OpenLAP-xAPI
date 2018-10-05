@@ -4,12 +4,12 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "fullActivities")
-public class FullActivities {
+public class Activitiy {
 	@Id
 	public String id;
 	public String activityId;
 	public String lrs_id;
-	public String organization;
+	public String organisation;
 	public Object name;
 	public Object description;
 	public Object extensions;
@@ -40,11 +40,11 @@ public class FullActivities {
 	}
 
 	public String getOrganization() {
-		return organization;
+		return organisation;
 	}
 
 	public void setOrganization(String organization) {
-		this.organization = organization;
+		this.organisation = organization;
 	}
 
 	public Object getName() {

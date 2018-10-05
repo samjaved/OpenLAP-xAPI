@@ -5,18 +5,18 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
-import de.ude.openlap.xapi.model.FullActivities;
+import de.ude.openlap.xapi.model.Activitiy;
 
-public interface FullActivitiesRepo extends MongoRepository<FullActivities, String> {
+public interface ActivitiyRepo extends MongoRepository<Activitiy, String> {
 
-	@Query(value = "{ '?0.?1' : ?2 }")
-	List<FullActivities> findByObjectNameAndProperty(String Objcet, String Parameter, String Value);
+	@Query(value = "{ '?0.?1' : '?2' }")
+	List<Activitiy> findByObjectNameAndProperty(String Objcet, String Parameter, String Value);
 
-	@Query(value = "{ '?0.?1.?2' : ?3 }")
-	List<FullActivities> findByObjects(String Objcet, String Secondobjcet, String Parameter, int Value);
+	@Query(value = "{ '?0.?1.?2' : '?3' }")
+	List<Activitiy> findByObjects(String Objcet, String Secondobjcet, String Parameter, int Value);
 
-	List<FullActivities> findByActivityId(String activityid);
+	List<Activitiy> findByActivityId(String activityid);
 
-	List<FullActivities> findByType(String type);
+	List<Activitiy> findByType(String type);
 
 }
