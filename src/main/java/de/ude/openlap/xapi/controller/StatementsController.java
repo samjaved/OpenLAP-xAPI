@@ -30,6 +30,16 @@ public class StatementsController {
 
 	}
 
+	@RequestMapping(value = "/verbs/list", method = RequestMethod.GET)
+	@ResponseBody
+	public String getAllVerbsFromStatements() throws IOException {
+
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String activiteslist = gson.toJson(statementsRepo.findAllVerbs("statement", "verb"));
+		return activiteslist;
+
+	}
+
 	/*
 	 * @RequestMapping("/learninglocker/statements/")
 	 * 
