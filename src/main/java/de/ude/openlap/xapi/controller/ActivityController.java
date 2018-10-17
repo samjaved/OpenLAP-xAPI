@@ -92,5 +92,29 @@ public class ActivityController {
 
 	}
 
+	@RequestMapping(value = "/show/extentions/metadata", method = RequestMethod.GET)
+	@ResponseBody
+	public String getActivitiesContextualFields(@RequestParam("objectName") String objectName,
+			@RequestParam("extensionsUrl") String extensionsUrl)
+			throws IOException {
+		Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+		String activiteslist = gson
+				.toJson(activityRepo.findContextualFieldsByExtensionUrl(objectName, extensionsUrl));
+		return activiteslist;
+	}
+
+	//@RequestMapping(value = "/show/extentions/metadata", method = RequestMethod.POST)
+	//@ResponseBody
+	/*public String getActivitiesByQuery(@RequestBody ExtentionParameters jsonString)
+			throws IOException {
+		System.out.println(jsonString.getObj1());
+		String query = "{'extensions.http://collide&46;info/xapi/gitAction.name':'gitExtension'}";
+		System.out.println(query);
+		Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+		String activiteslist = gson
+				.toJson(activityRepo.findActivitesByQuery(query));
+		//return activiteslist;
+	}*/
+
 
 }

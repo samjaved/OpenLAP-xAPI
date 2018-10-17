@@ -10,13 +10,21 @@ import de.ude.openlap.xapi.model.Activitiy;
 public interface ActivitiyRepo extends MongoRepository<Activitiy, String> {
 
 	@Query(value = "{ '?0.?1' : '?2' }")
-	List<Activitiy> findByObjectNameAndProperty(String Objcet, String Parameter, String Value);
+	List<Activitiy> findByObjectNameAndProperty(String Object, String Parameter, String Value);
 
 	@Query(value = "{ '?0.?1.?2' : '?3' }")
-	List<Activitiy> findByObjects(String Objcet, String Secondobjcet, String Parameter, int Value);
+	List<Activitiy> findByObjects(String Object, String Secondobject, String Parameter, int Value);
 
 	List<Activitiy> findByActivityId(String activityid);
 
+	@Query(value = "{'?0.?1':{ $exists: true } }", fields = "{ 'extensions':1}")
+	List<Activitiy> findContextualFieldsByExtensionUrl(String objectname, String url);
+
+	/*
+	 * @Query(value = "{?0}") List<Activitiy> findActivitesByQuery(String query);
+	 */
+
 	List<Activitiy> findByType(String type);
+
 
 }
