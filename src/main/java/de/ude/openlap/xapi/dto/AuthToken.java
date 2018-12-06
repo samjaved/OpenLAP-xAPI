@@ -1,4 +1,4 @@
-package de.ude.openlap.xapi.model;
+package de.ude.openlap.xapi.dto;
 
 public class AuthToken {
 	private String token;
