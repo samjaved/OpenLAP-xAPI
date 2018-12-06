@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.ude.openlap.xapi.config.TokenProvider;
-import de.ude.openlap.xapi.model.AuthToken;
-import de.ude.openlap.xapi.model.LoginUser;
+import de.ude.openlap.xapi.dto.AuthToken;
+import de.ude.openlap.xapi.dto.LoginUser;
 import de.ude.openlap.xapi.service.UserService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
