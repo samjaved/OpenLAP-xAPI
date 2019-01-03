@@ -18,6 +18,15 @@ import de.ude.openlap.xapi.dto.AuthToken;
 import de.ude.openlap.xapi.dto.LoginUser;
 import de.ude.openlap.xapi.service.UserService;
 
+/**
+ * The AuthenticationController class handles the requests received to
+ * login.Before sending any other request user need to send login request after
+ * this request if he is authticated user he will receive the Jwt token. That
+ * Jwt token needs to be send as Bearer Token in all other requests
+ * 
+ * @author Sammar Javed
+ * @version 1.0
+ */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/v1/token/")
@@ -31,8 +40,17 @@ public class AuthenticationController {
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * User Authentication
+	 * 
+	 * @param LoginUser-
+	 *            This LoginUser Object contains email and password
+	 * 
+	 * @return After authentication returns the string JWT token.This returned JWT
+	 *         token needs to be passed as Bearer token in every request
+	 */
 	@RequestMapping(value = "/generate-token", method = RequestMethod.POST)
-	public ResponseEntity<?> register(@RequestBody LoginUser loginUser) throws AuthenticationException {
+	public ResponseEntity<?> login(@RequestBody LoginUser loginUser) throws AuthenticationException {
 
 		final Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginUser.getEmail(), loginUser.getPassword()));
