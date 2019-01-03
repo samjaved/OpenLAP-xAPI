@@ -106,9 +106,26 @@
     <artifactId>jackson-mapper-asl</artifactId>
     <version>1.9.13</version>
 </dependency>
+<dependency>
+    <groupId>com.github.OpenLearningAnalyticsPlatform</groupId>
+    <artifactId>OpenLAP-DataSet</artifactId>
+    <version>-SNAPSHOT</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-collections4</artifactId>
+    <version>4.2</version>
+</dependency>
+
 
 	</dependencies>
-
+<repositories>
+      <repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+</repository>
+   </repositories>
 	<build>
 		<plugins>
 			<plugin>
