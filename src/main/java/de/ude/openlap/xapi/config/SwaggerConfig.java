@@ -15,6 +15,13 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * The SwaggerConfig class is the configuration class for swagger api doc.It is
+ * creating API documentation
+ * 
+ * @author Sammar Javed
+ * @version 1.0
+ */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
@@ -31,7 +38,7 @@ public class SwaggerConfig {
 	}
 
 	private ApiInfo metaData() {
-		ApiInfo apiInfo = new ApiInfo("Spring Boot REST API", "Spring Boot REST API for Online Store", "1.0",
+		ApiInfo apiInfo = new ApiInfo("Spring Boot REST API", "Spring Boot REST API for OpenLAP-xAPI", "1.0",
 				"Terms of service",
 				new Contact("Sammar Javed", "https://github.com/samjaved", "sammar.javed@stud.uni-due.de"),
 				"Apache License Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0");
