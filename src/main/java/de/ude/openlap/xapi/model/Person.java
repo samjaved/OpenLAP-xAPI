@@ -8,7 +8,7 @@ public class Person {
 
 	@Id
 	public String id;
-	public String organization;
+	public String organisation;
 	public String name;
 
 	public String getId() {
@@ -19,12 +19,12 @@ public class Person {
 		this.id = id;
 	}
 
-	public String getOrganization() {
-		return organization;
+	public String getOrganisation() {
+		return organisation;
 	}
 
-	public void setOrganization(String organization) {
-		this.organization = organization;
+	public void setOrganisation(String organization) {
+		this.organisation = organization;
 	}
 
 	public String getName() {
