@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.MappingIterator;
 
 import de.ude.openlap.xapi.dto.Statement;
 
-public interface CsvToJsonConverter {
+public interface CsvToJsonService {
 
 	public MappingIterator<Statement> readStatementsFromCsv(String InptFile);
 
