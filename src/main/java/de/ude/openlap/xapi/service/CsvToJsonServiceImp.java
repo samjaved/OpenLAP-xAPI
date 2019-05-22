@@ -18,7 +18,7 @@ import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import de.ude.openlap.xapi.dto.Statement;
 
 @Service("csvToJsonConverter")
-public class CsvToJsonConverterImp implements CsvToJsonConverter {
+public class CsvToJsonServiceImp implements CsvToJsonService {
 
 	@Override
 	public MappingIterator<Statement> readStatementsFromCsv(String inputFile) {

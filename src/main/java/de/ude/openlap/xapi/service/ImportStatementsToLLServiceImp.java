@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service("sendXapiStatmentsToLL")
-public class XapiStatementsToLLImp implements XapiStatementsToLL {
+public class ImportStatementsToLLServiceImp implements ImportStatementsToLLService {
 	@Value("${learninglocker.url}")
 	private String learningLockerUrl;
 

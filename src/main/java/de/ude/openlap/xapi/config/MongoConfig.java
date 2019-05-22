@@ -9,7 +9,14 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 import com.mongodb.MongoClient;
 
-
+/**
+ * The MongoConfig class is the configuration class which is reading environment
+ * variables databasename,host and port from mongo.properties file to create
+ * MongoClient
+ * 
+ * @author Sammar Javed
+ * @version 1.0
+ */
 @Configuration
 @EnableMongoRepositories(basePackages = "de.ude.openlap.xapi.repo")
 @PropertySource("classpath:mongo.properties")

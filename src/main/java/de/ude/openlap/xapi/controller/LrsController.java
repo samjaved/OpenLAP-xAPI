@@ -3,7 +3,6 @@ package de.ude.openlap.xapi.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,40 +15,33 @@ import de.rwthaachen.openlap.dataset.OpenLAPColumnDataType;
 import de.rwthaachen.openlap.dataset.OpenLAPDataSet;
 import de.rwthaachen.openlap.exceptions.OpenLAPDataColumnException;
 import de.ude.openlap.xapi.dto.OpenLapDataConverter;
-import de.ude.openlap.xapi.model.Person;
-import de.ude.openlap.xapi.repo.PersonRepo;
-
+import de.ude.openlap.xapi.model.Lrs;
+import de.ude.openlap.xapi.repo.LrsRepo;
 
 @RestController
-@RequestMapping("/v1/personas/")
-public class PersonasController {
-	@Autowired
-	private PersonRepo personasRepo;
+@RequestMapping("/v1/lrs/")
+public class LrsController {
 
-	/**
-	 * 
-	 * @return JsonArray of all the persons
-	 * @throws IOException
-	 * @throws OpenLAPDataColumnException
-	 */
+	@Autowired
+	private LrsRepo lrsRepo;
+
 	@PreAuthorize("hasRole('site_admin')")
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@ResponseBody
-	public OpenLAPDataSet listOfPersonNamesByOrganization(@RequestParam("OrganizationId") ObjectId OrganizationId)
-			throws IOException, OpenLAPDataColumnException {
-		ArrayList listOfPerson = new ArrayList();
-		// ObjectId id = new ObjectId(OrganizationId);
+	public OpenLAPDataSet listOfLrsByOrganization(@RequestParam("OrganizationId") String OrganizationId)
+			throws IOException, OpenLAPDataColumnException
+	{
+		ArrayList listOfLrsIds = new ArrayList();
+		ArrayList listOfLrsTitles = new ArrayList();
 
-		for (Person person : personasRepo.findPersonNamesByOrganization(OrganizationId)) {
-			// room contains an element of rooms
-			listOfPerson.add(person.getName());
+		for (Lrs lrs : lrsRepo.findAll()) {
+			listOfLrsIds.add(lrs.getId());
+			listOfLrsTitles.add(lrs.getTitle());
 		}
-
 		OpenLapDataConverter dataConveter = new OpenLapDataConverter();
-		dataConveter.SetOpenLapDataColumn("PersonNames", OpenLAPColumnDataType.Text, true,
-				listOfPerson);
-		
+		dataConveter.SetOpenLapDataColumn("LrsIds", OpenLAPColumnDataType.Text, true, listOfLrsIds);
+		dataConveter.SetOpenLapDataColumn("LrsTitles", OpenLAPColumnDataType.Text, true,
+				listOfLrsTitles);
 		return dataConveter.getDataSet();
-
 	}
 }

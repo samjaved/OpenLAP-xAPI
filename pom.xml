@@ -79,10 +79,53 @@
     <version>2.6.1</version>
     <scope>compile</scope>
 </dependency>
+<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+<dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+<dependency>
+    <groupId>org.hamcrest</groupId>
+    <artifactId>hamcrest-library</artifactId>
+    <version>1.3</version>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>com.jayway.jsonpath</groupId>
+    <artifactId>json-path</artifactId>
+    <version>2.2.0</version>
+    <scope>test</scope>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl -->
+<dependency>
+    <groupId>org.codehaus.jackson</groupId>
+    <artifactId>jackson-mapper-asl</artifactId>
+    <version>1.9.13</version>
+</dependency>
+<dependency>
+    <groupId>com.github.OpenLearningAnalyticsPlatform</groupId>
+    <artifactId>OpenLAP-DataSet</artifactId>
+    <version>-SNAPSHOT</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-collections4</artifactId>
+    <version>4.2</version>
+</dependency>
 
 
 	</dependencies>
-
+<repositories>
+      <repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+</repository>
+   </repositories>
 	<build>
 		<plugins>
 			<plugin>

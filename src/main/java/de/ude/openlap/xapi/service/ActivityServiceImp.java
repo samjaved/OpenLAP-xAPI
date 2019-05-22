@@ -1,6 +1,5 @@
-package de.ude.openlap.xapi.controller;
+package de.ude.openlap.xapi.service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -8,12 +7,7 @@ import org.bson.types.ObjectId;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 
@@ -24,21 +18,14 @@ import de.ude.openlap.xapi.dto.OpenLapDataConverter;
 import de.ude.openlap.xapi.model.Activitiy;
 import de.ude.openlap.xapi.repo.ActivitiyRepo;
 
-@RestController
-@RequestMapping("/v1/activity/")
-public class ActivityController {
-
-
+@Service
+public class ActivityServiceImp implements ActivityService {
 	@Autowired
 	private ActivitiyRepo activityRepo;
 
-
-
-	@PreAuthorize("hasRole('site_admin')")
-	@RequestMapping(value = "/show/activites", method = RequestMethod.GET)
-	@ResponseBody
-	public OpenLAPDataSet getActivities(@RequestParam("OrganizationId") ObjectId OrganizationId,
-			@RequestParam("LrsId") ObjectId lrsId) throws IOException, JSONException, OpenLAPDataColumnException {
+	@Override
+	public OpenLAPDataSet getActivities(ObjectId OrganizationId, ObjectId lrsId)
+			throws OpenLAPDataColumnException, JSONException {
 
 		ArrayList<Object> listOfActivityTypes = new ArrayList<Object>();
 		ArrayList<Object> listOfActivityNames = new ArrayList<Object>();
@@ -55,38 +42,38 @@ public class ActivityController {
 			}
 
 			if (activity.getName() != null) {
-			String activityName = new Gson().toJson(activity.getName());
-			JSONObject activityNameObject = new JSONObject(activityName);
+				String activityName = new Gson().toJson(activity.getName());
+				JSONObject activityNameObject = new JSONObject(activityName);
 				Iterator<?> displaykey = activityNameObject.keys();
 
-			while (displaykey.hasNext()) {
-				// loop to get the dynamic key
-				String DynamicLanguageKey = (String) displaykey.next();
+				while (displaykey.hasNext()) {
+					// loop to get the dynamic key
+					String DynamicLanguageKey = (String) displaykey.next();
 
-				// get the value of the dynamic key
-				if (!listOfActivityNames.contains(activityNameObject.get(DynamicLanguageKey))) {
-					listOfActivityNames.add(activityNameObject.get(DynamicLanguageKey));
+					// get the value of the dynamic key
+					if (!listOfActivityNames.contains(activityNameObject.get(DynamicLanguageKey))) {
+						listOfActivityNames.add(activityNameObject.get(DynamicLanguageKey));
+					}
+
 				}
-
-			}
 			}
 			if (activity.getDescription() != null) {
-			String activityDescription = new Gson().toJson(activity.getDescription());
+				String activityDescription = new Gson().toJson(activity.getDescription());
 
-			JSONObject activityDescriptionObject = new JSONObject(activityDescription);
+				JSONObject activityDescriptionObject = new JSONObject(activityDescription);
 				Iterator<?> descriptionKey = activityDescriptionObject.keys();
 
-			while (descriptionKey.hasNext()) {
-				// loop to get the dynamic key
-				String DynamicdescriptionKey = (String) descriptionKey.next();
+				while (descriptionKey.hasNext()) {
+					// loop to get the dynamic key
+					String DynamicdescriptionKey = (String) descriptionKey.next();
 
-				// get the value of the dynamic key
-				if (!listOfActivityDescription.contains(activityDescriptionObject.get(DynamicdescriptionKey))) {
-					listOfActivityDescription.add(activityDescriptionObject.get(DynamicdescriptionKey));
+					// get the value of the dynamic key
+					if (!listOfActivityDescription.contains(activityDescriptionObject.get(DynamicdescriptionKey))) {
+						listOfActivityDescription.add(activityDescriptionObject.get(DynamicdescriptionKey));
+					}
+
 				}
-
 			}
-		}
 			if (activity.getExtensions() != null) {
 				String activityExtension = new Gson().toJson(activity.getExtensions());
 
@@ -112,7 +99,6 @@ public class ActivityController {
 								listOfActivityExtensionContextKeys.add(DynamiccontextKey);
 							}
 
-
 						}
 					}
 
@@ -131,21 +117,12 @@ public class ActivityController {
 				listOfActivityExtensionIds);
 		dataConveter.SetOpenLapDataColumn("ActivityExtentionContextKeys", OpenLAPColumnDataType.Text, true,
 				listOfActivityExtensionContextKeys);
-
-
 		return dataConveter.getDataSet();
-
-
 	}
 
-	@PreAuthorize("hasRole('site_admin')")
-	@RequestMapping(value = "/show/activitesExtensionContextValues", method = RequestMethod.GET)
-	@ResponseBody
-	public OpenLAPDataSet getActivitiesExtensionContextValues(@RequestParam("OrganizationId") ObjectId OrganizationId,
-			@RequestParam("LrsId") ObjectId lrsId, @RequestParam("extensionId") String extensionId,
-			@RequestParam("extensionContextKey") String extensionContextKey)
-			throws IOException, JSONException, OpenLAPDataColumnException {
-
+	@Override
+	public OpenLAPDataSet getActivitiesExtensionContextValues(ObjectId OrganizationId, ObjectId lrsId,
+			String extensionId, String extensionContextKey) throws OpenLAPDataColumnException, JSONException {
 		ArrayList<Object> listOfExtensionContextValues = new ArrayList<Object>();
 		for (Activitiy activity : activityRepo.findContextualFieldValuesByExtensionUrlAndKey(OrganizationId, lrsId,
 				"extensions", extensionId, extensionContextKey)) {
@@ -153,10 +130,10 @@ public class ActivityController {
 				String activityExtension = new Gson().toJson(activity.getExtensions());
 				JSONObject activityExtensionObject = new JSONObject(activityExtension);
 				if (!activityExtensionObject.toString().equals("{}")) {
-				JSONObject extensionIdObject = activityExtensionObject.getJSONObject(extensionId);
-				if (!listOfExtensionContextValues.contains(extensionIdObject.get(extensionContextKey))) {
-					listOfExtensionContextValues.add(extensionIdObject.get(extensionContextKey));
-				}
+					JSONObject extensionIdObject = activityExtensionObject.getJSONObject(extensionId);
+					if (!listOfExtensionContextValues.contains(extensionIdObject.get(extensionContextKey))) {
+						listOfExtensionContextValues.add(extensionIdObject.get(extensionContextKey));
+					}
 				}
 			}
 		}
@@ -166,10 +143,5 @@ public class ActivityController {
 				listOfExtensionContextValues);
 
 		return dataConveter.getDataSet();
-
 	}
-
-
-
-
 }

@@ -1,35 +1,38 @@
-package de.ude.openlap.xapi.controller;
+package de.ude.openlap.xapi.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
 
 import de.rwthaachen.openlap.dataset.OpenLAPColumnDataType;
 import de.rwthaachen.openlap.dataset.OpenLAPDataSet;
 import de.rwthaachen.openlap.exceptions.OpenLAPDataColumnException;
 import de.ude.openlap.xapi.dto.OpenLapDataConverter;
 import de.ude.openlap.xapi.model.Organization;
+import de.ude.openlap.xapi.model.User;
 import de.ude.openlap.xapi.repo.OrganizationRepo;
+import de.ude.openlap.xapi.repo.UserRepo;
 
-@RestController
-@RequestMapping("/v1/organizations/")
-public class OrganizationController {
+@Service
+public class OrganizationServiceImp implements OrganizationService {
 	@Autowired
 	private OrganizationRepo organizationRepo;
 
-	@PreAuthorize("hasRole('site_admin')")
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	@ResponseBody
-	public OpenLAPDataSet list() throws IOException, OpenLAPDataColumnException {
+	@Autowired
+	private UserRepo userRepo;
+	@Override
+	public OpenLAPDataSet getOrganizationForLoggedUser(Authentication authentication)
+			throws IOException, OpenLAPDataColumnException {
+		User user = userRepo.findByEmail(authentication.getName());
+
+		ObjectId userId = new ObjectId(user.getId());
 		ArrayList listOfOrganizationIds = new ArrayList();
 		ArrayList listOfOrganizationNames = new ArrayList();
-		for (Organization organization : organizationRepo.findAll()) {
+		for (Organization organization : organizationRepo.findOrganizationsByUserId(userId)) {
 			listOfOrganizationIds.add(organization.getId());
 			listOfOrganizationNames.add(organization.getName());
 		}
@@ -38,5 +41,8 @@ public class OrganizationController {
 		dataConveter.SetOpenLapDataColumn("OrganizationNames", OpenLAPColumnDataType.Text, true,
 				listOfOrganizationNames);
 		return dataConveter.getDataSet();
+
+
 	}
+
 }
