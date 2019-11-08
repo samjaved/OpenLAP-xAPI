@@ -52,7 +52,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	    .usernameParameter("email")
 	    .and()
 		.cors().and().csrf().disable().authorizeRequests()
-				.antMatchers("/v1/token/*", "/v2/api-docs", "/swagger-resources/configuration/ui", "/swagger-resources",
+				.antMatchers("/v1/authenticate/*", "/v2/api-docs", "/swagger-resources/configuration/ui",
+						"/swagger-resources",
 						"/swagger-resources/configuration/security", "/swagger-ui.html", "/webjars/**")
 				.permitAll()
 				.anyRequest().authenticated().and().exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
@@ -65,5 +66,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public BCryptPasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();
 	}
-
 }

@@ -182,7 +182,6 @@ public class OpenLapXapiApiTests implements UserAuthenticationTests, XapiStateme
 						.content(IntegrationTestUtil.convertObjectToJsonBytes(query)))
 				.andExpect(status().isOk())
 				.andReturn();
-
 	}
 
 }

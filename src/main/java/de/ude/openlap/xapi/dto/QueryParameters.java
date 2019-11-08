@@ -5,18 +5,12 @@ import java.io.Serializable;
 public class QueryParameters implements Serializable {
 	private static final long serialVersionUID = -1764970284520387975L;
 
-	private Object[] queryOptionalParameters;
+	private Object[] query;
 	private Object parametersToBeReturnedInResult;
-	private Object[] queryMandatoryParameters;
+	private Object[] statementDuration;
 
 
-	public Object[] getQueryMandatoryParameters() {
-		return queryMandatoryParameters;
-	}
 
-	public void setQueryMandatoryParameters(Object[] queryMandatoryParameters) {
-		this.queryMandatoryParameters = queryMandatoryParameters;
-	}
 
 	public QueryParameters() {
     }
@@ -29,12 +23,20 @@ public class QueryParameters implements Serializable {
 		this.parametersToBeReturnedInResult = parametersToBeReturnedInResult;
 	}
 
-	public Object[] getQueryOptionalParameters() {
-		return queryOptionalParameters;
+	public Object[] getQuery() {
+		return query;
 	}
 
-	public void setQueryOptionalParameters(Object[] queryOptionalParameters) {
-		this.queryOptionalParameters = queryOptionalParameters;
+	public void setQuery(Object[] query) {
+		this.query = query;
+	}
+
+	public Object[] getStatementDuration() {
+		return statementDuration;
+	}
+
+	public void setStatementDuration(Object[] statementDuration) {
+		this.statementDuration = statementDuration;
 	}
 
 

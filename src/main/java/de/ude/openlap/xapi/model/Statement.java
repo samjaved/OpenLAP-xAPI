@@ -66,13 +66,6 @@ public class Statement {
 	public void setClient(String client) {
 		this.client = client;
 	}
-	public boolean isVoided() {
-		return voided;
-	}
-
-	public void setVoided(boolean voided) {
-		this.voided = voided;
-	}
 
 	public String getHash() {
 		return hash;
@@ -96,7 +89,6 @@ public class Statement {
 
 	public String client;
 
-	public boolean voided;
 	public String hash;
 
 	private Object statement;

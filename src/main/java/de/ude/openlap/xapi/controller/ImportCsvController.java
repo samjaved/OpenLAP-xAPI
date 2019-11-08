@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.databind.MappingIterator;
 
 import de.ude.openlap.xapi.dto.Statement;
-import de.ude.openlap.xapi.service.CsvToJsonConverter;
-import de.ude.openlap.xapi.service.XapiStatementsToLL;
+import de.ude.openlap.xapi.service.CsvToJsonService;
+import de.ude.openlap.xapi.service.ImportStatementsToLLService;
 
 @Controller
 public class ImportCsvController {
 
 	@Autowired
-	private CsvToJsonConverter converter;
+	private CsvToJsonService converter;
 	@Autowired
-	private XapiStatementsToLL xapiStatements;
+	private ImportStatementsToLLService xapiStatements;
 
 	@RequestMapping("/import/csvdata")
 	@ResponseBody
