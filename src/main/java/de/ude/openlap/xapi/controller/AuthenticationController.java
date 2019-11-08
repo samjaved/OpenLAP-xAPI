@@ -29,7 +29,7 @@ import de.ude.openlap.xapi.service.UserService;
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/v1/token/")
+@RequestMapping("/v1/authenticate/")
 public class AuthenticationController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -49,7 +49,7 @@ public class AuthenticationController {
 	 * @return After authentication returns the string JWT token.This returned JWT
 	 *         token needs to be passed as Bearer token in every request
 	 */
-	@RequestMapping(value = "/generate-token", method = RequestMethod.POST)
+	@RequestMapping(value = "/get-token", method = RequestMethod.POST)
 	public ResponseEntity<?> login(@RequestBody LoginUser loginUser) throws AuthenticationException {
 
 		final Authentication authentication = authenticationManager.authenticate(

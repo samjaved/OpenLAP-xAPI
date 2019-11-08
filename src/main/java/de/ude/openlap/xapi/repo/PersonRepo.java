@@ -10,7 +10,7 @@ import de.ude.openlap.xapi.model.Person;
 
 public interface PersonRepo extends MongoRepository<Person, String> {
 
-	@Query(value = "{'organisation':?0 }", fields = "{'_id':0,'name':1}")
+	@Query(value = "{'organisation':?0 }", fields = "{'_id':1,'name':1}")
 	List<Person> findPersonNamesByOrganization(ObjectId id);
 
 }
